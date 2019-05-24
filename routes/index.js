@@ -11,6 +11,10 @@ router.get('/signup', (req, res) => {
 	res.render('signup');
 });
 
+router.get('/overview', (req, res) => {
+	res.render('overview')
+});
+
 router.get('/details', (req, res) => {
 	res.render('details')
 });
