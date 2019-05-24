@@ -4,70 +4,18 @@
 
 
 router.get('/', (req, res) => {
-	var setting;
+	res.render('home');
+});
 
-	db.Settings.findOne({})
-	.then( function(result) {
-		//res.render('home', {settings: result});
-		console.log('settings found:');
-		setting = result;
-		console.log(setting)
-		return db.Stats.findOne({})
-	})
-	.then( function(statResult) {
-		var timeInHot = statResult.timeInHot/statResult.timeTotal;
-		var timeInCold = statResult.timeInCold/statResult.timeTotal;
-		var timeInHumid = statResult.timeInHumid/statResult.timeTotal;
-		var timeInDry = statResult.timeInDry/statResult.timeTotal;
-		var timeOn = statResult.timeOn/statResult.timeTotal;
-		var stats = {
-			avgTemperature: statResult.avgTemperature.toFixed(2),
-			avgHumidity: statResult.avgHumidity.toFixed(2),
-			avgBrightness: statResult.avgBrightness,
-			temperatureData: [timeInHot, 1-timeInHot-timeInCold, timeInCold],
-			humidityData: [timeInHumid, 1-timeInHumid-timeInDry, timeInDry],
-			onData: [timeOn, 1-timeOn]
-		};
-
-		console.log(setting);
-		console.log(stats);
-
-		res.render('home', {settings: setting, stats: stats});
-	})
-	.catch (function(err) {
-		res.send(err);
-	});
-	//res.render('home');	l
-	//res.send('hi');
+router.get('/signup', (req, res) => {
+	res.render('signup');
 });
 
 router.get('/details', (req, res) => {
-	db.Data.find().limit(24).sort({timestamp: -1})
-	.then( function(data) {
-		var times = [];
-		var temperatures = [];
-		var humidities = [];
-		var brightnesses = [];
-
-		data.forEach( function(reading) {
-			times.push("'" + reading.timestamp + "'");
-			temperatures.push(reading.temperature);
-			humidities.push(reading.humidity);
-			brightnesses.push(reading.brightness);
-		});
-
-		res.render('details', {data:data,
-								temperature: temperatures.reverse(),
-								humidity: humidities.reverse(),
-								brightness: brightnesses.reverse(),
-								times: times.reverse()
-		});
-	})
-	.catch( function(err) {
-		res.send(err);
-	});
+	res.render('details')
 });
 
+/*
 router.post('/set-color', (req,res) => {
 
 db.Settings.findOne({})
@@ -110,6 +58,7 @@ router.post('/configure', (req, res) => {
 	});
 });
 
+*/
 /*
 router.get('/seed/:temp/:hum/:bright', (req,res) => {
 	var seed = {
