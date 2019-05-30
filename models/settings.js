@@ -1,28 +1,13 @@
 var mongoose	=require('mongoose');
 
 var settingsSchema = new mongoose.Schema({
-	defaultColor: {
-		type: String
-	},
-	lightColor: {
-		type: String
-	},
-	lightIsOn: {
+	triningOn: {
 		type:Boolean
 	},
-	hotThreshold: {
-		type: Number
+	workout: {
+		type: String
 	},
-	coldThreshold: {
-		type: Number
-	},
-	humidThreshold: {
-		type: Number
-	},
-	dryThreshold: {
-		type: Number
-	},
-	darkThreshold: {
+	level: {
 		type: Number
 	}
 });

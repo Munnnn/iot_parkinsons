@@ -10,3 +10,4 @@ mongoose.promise = Promise;
 module.exports.Settings = require('./settings');
 module.exports.Stats	=require('./statistics');
 module.exports.Data 	=require('./data');
+module.exports.Info 	=require('./info');

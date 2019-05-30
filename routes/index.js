@@ -19,6 +19,54 @@ router.get('/details', (req, res) => {
 	res.render('details')
 });
 
+router.post('/create-user', (req,res) => {
+
+	var info = {
+		'userName': req.body.username,
+		'password': req.body.password,
+		'firstName': req.body.first_name,
+		'middleName': req.body.middle_name,
+		'lastName': req.body.last_name,
+		'age': req.body.age,
+		'stage': req.body.stage,
+		'gender': req.body.gender
+	}
+
+	console.log(info)
+
+	db.Info.findOneAndUpdate({}, info, {'new': true, upsert:true})
+	.then( function(edited) {
+		console.log(edited);
+		res.redirect('/');
+	})
+	.catch( function(err) {
+		res.send(err);
+	});
+
+	
+
+});
+
+router.post('/sign-in', (req,res) => {
+	db.Info.findOne({})
+	.then( function(result) {
+		if (req.body.options) {
+			if (req.body.options.login) {
+				if(req.body.username==result['userName'] && req.body.password==result['password']){
+					res.redirect('/overview');
+				} else {
+					res.redirect('/');
+				}
+			} else if (req.body.options.signup) {
+				res.redirect('/signup');
+			}
+		}
+	})
+
+});
+
+
+
 /*
 router.post('/set-color', (req,res) => {
 
