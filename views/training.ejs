@@ -1,0 +1,19 @@
+<% include ./partials/head %>
+
+<script type='text/javascript' src='/js/soundjs.js'> </script>
+
+<% include ./partials/header %> 
+
+<form class='ui form' action = '/lets-train' method='post' id='training-start'>
+<input type='checkbox' name='options[start]' id='start' hidden>
+
+<input type='checkbox' name='options[stop]' id='stop' hidden>
+
+<div class='ui submit button' onclick='submit()'> Start</div>
+
+<div class='ui submit button' onclick='submit(false,true)'> Stop</div>
+
+ <script type='text/javascript' src='/js/training.js'> </script> 
+</form>
+
+<% include ./partials/foot %>

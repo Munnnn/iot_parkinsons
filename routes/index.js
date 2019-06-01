@@ -12,11 +12,23 @@ router.get('/signup', (req, res) => {
 });
 
 router.get('/overview', (req, res) => {
-	res.render('overview')
+	db.Info.findOne({})
+	.then( function(result) {
+		console.log(result);
+		res.render('overview', {info: result});
+	})
 });
 
 router.get('/details', (req, res) => {
 	res.render('details')
+});
+
+router.get('/workouts', (req, res) => {
+	res.render('workouts')
+});
+
+router.get('/training', (req, res) => {
+	res.render('training')
 });
 
 router.post('/create-user', (req,res) => {
@@ -65,6 +77,79 @@ router.post('/sign-in', (req,res) => {
 
 });
 
+
+router.post('/lets-train', (req,res) => {
+	if (req.body.options) {
+		if(req.body.options.start) {
+			var data = {
+			'side': 1,
+			'start': 1
+			}
+		} else if(req.body.options.stop){
+			var data = {
+			'side': 1,
+			'start': 0
+			}
+		}
+
+		console.log(data)
+
+		db.Data.findOneAndUpdate({}, data, {'new': true, upsert:true})
+		.then( function(edited) {
+			console.log(edited);
+			res.redirect('/');
+		})
+		.catch( function(err) {
+			res.send(err);
+		});
+
+		db.Data.findOne({})
+		.then( function(result) {
+			console.log(result)
+		});
+	/*
+		//while (req.body.options.start) {
+			db.Data.findOne({})
+			.then( function(result) {
+				console.log(result['side'])
+				if(result['start'] !== 1) {
+					return
+				}
+				if(result['side'] == 1) {
+					player.play('C:/Users/Owner/GIT/iot_parkinsons/assets/audio/right.mp3', function (err) {
+   					if (err) throw err;
+   					//console.log("Audio finished");
+ 					});
+				} else if(result['side'] == 0) {
+					player.play('C:/Users/Owner/GIT/iot_parkinsons/assets/audio/left.mp3', function (err) {
+   					if (err) throw err;
+   					//console.log("Audio finished");
+ 					});
+				}
+			})
+			//sleep(10000);
+			//wait(5000)
+		//}
+		*/
+	}
+	res.redirect('/training');
+});
+
+function wait(ms) {
+	var d = new Date();
+	var d2 = null;
+	do { d2 = new Date(); }
+	while(d2-d < ms);
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 
 /*

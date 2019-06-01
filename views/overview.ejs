@@ -1,5 +1,23 @@
 <% include ./partials/head %>
 
- <% include ./partials/header %> 
+<% include ./partials/header %> 
+
+
+<form class='ui form' action = '/sign-in' method='post' id='log'>
+<div class="ui placeholder segment">
+  <div class="ui two column very relaxed stackable grid">
+    <div class="column">
+      <h3 class='ui centered header'> Welcome <%= info.firstName %> <%= info.middleName %> <%= info.lastName %>!!! </h3>
+      <h3 class='ui centered header'> Streak %> </h3>
+    </div>
+    <div class="middle aligned column">
+      <h3 class='ui centered header'> About Us </h3>
+      <h3 class='ui centered header'> A portable device paired with an application that allows users to practice different movements. The device integrates auditory and physical cues to educate the user and strengthen mind-body connections. The cue algorithms that describe different movements can be found in the application as training modules that communicate with the device. </h3>
+    </div>
+  </div>
+</div>
+</form>
+
+<script type='text/javascript' src='/js/home.js'> </script> 
 
 <% include ./partials/foot %>

@@ -1,6 +1,7 @@
 	var	express		= require('express'),
 	bodyParser 	= require('body-parser'),
 	app			=express();
+	player = require('play-sound')(opts = {player: "C:/Program Files (x86)/MPlayer for Windows/mplayer/mplayer.exe"})
 
 var indexRoutes = require('./routes/index'),
 	apiRoutes	= require('./routes/api');
@@ -10,6 +11,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/assets'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 /******** Router ********/
 app.use('/', indexRoutes);

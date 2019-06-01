@@ -5,7 +5,7 @@ var dataSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	},
-	switch: {
+	side: {
 		type: Number
 	},
 	start: {
